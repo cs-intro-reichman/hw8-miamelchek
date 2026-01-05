@@ -32,12 +32,12 @@ public class User {
     }
 
     /** Returns the follows array. */
-    public String[] getFollows() { // FIX: method name (was getfFollows)
+    public String[] getfFollows() {
         return follows;
     }
 
     /** Returns the number of users that this user follows. */
-    public int getCount() { // FIX: method name (was getfCount)
+    public int getfCount() {
         return fCount;
     }
 

@@ -104,7 +104,7 @@ public class Network {
         String mostPopularName = null;
         int maxFollowers = -1;
 
-        // FIX: iterate only over existing users (0..userCount-1)
+        // iterate only over existing users (0..userCount-1)
         for (int i = 0; i < userCount; i++) {
             String name = users[i].getName();
             int count = followeeCount(name);
