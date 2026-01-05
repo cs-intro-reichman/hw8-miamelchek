@@ -53,7 +53,7 @@ public class Network {
         }
 
         users[userCount] = new User(name);
-        userCount++; // FIX: update userCount
+        userCount++;
         return true;
     }
 
@@ -61,6 +61,11 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
+        // FIX: a user cannot follow itself
+        if (name1.equals(name2)) {
+            return false;
+        }
+
         User u1 = getUser(name1);
         User u2 = getUser(name2);
 
@@ -104,7 +109,6 @@ public class Network {
         String mostPopularName = null;
         int maxFollowers = -1;
 
-        // iterate only over existing users (0..userCount-1)
         for (int i = 0; i < userCount; i++) {
             String name = users[i].getName();
             int count = followeeCount(name);
@@ -123,7 +127,6 @@ public class Network {
     private int followeeCount(String name) {
         int followersCount = 0;
 
-        // FIX: iterate only over existing users (0..userCount-1)
         for (int i = 0; i < userCount; i++) {
             if (users[i].follows(name)) {
                 followersCount++;
@@ -135,14 +138,19 @@ public class Network {
 
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
-        // FIX: include the required header
-        String ans = "Network:\n";
-        for (int i = 0; i < userCount; i++) {
-            ans = ans + users[i].toString();
-            if (i < userCount - 1) {
-                ans = ans + "\n";
+        String ans = "Network:";
+
+        // FIX: no trailing newline for empty network
+        if (userCount > 0) {
+            ans += "\n";
+            for (int i = 0; i < userCount; i++) {
+                ans += users[i].toString();
+                if (i < userCount - 1) {
+                    ans += "\n";
+                }
             }
         }
+
         return ans;
     }
 }
